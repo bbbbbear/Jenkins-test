@@ -14,7 +14,17 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                echo 'Deploying....'
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject() {
+                            // 部署 nginx 來服務 HTML 檔案
+                            def app = openshift.newApp('nginx~https://github.com/bbbbbear/Jenkins-test.git')
+                            
+                            // 建立路由
+                            openshift.selector("svc", "jenkins-test").expose()
+                        }
+                    }
+                }
             }
         }
     }

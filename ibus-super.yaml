@@ -93,4 +93,4 @@ spec:
         #     drop: ["ALL"]
         #     add: ["NET_ADMIN", "SYS_TIME"]
       imagePullSecrets: 
-      - name: secret
+      - name: foxconn-secret

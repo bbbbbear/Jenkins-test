@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'Deploying....'
                 // 在這裡添加部署到 OpenShift 的命令，例如：
-                sh 'oc apply -f deployment.yaml'
+                sh 'oc apply -f ibus-super.yaml'
             }
         }
     }

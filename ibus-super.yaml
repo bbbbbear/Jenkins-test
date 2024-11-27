@@ -1,0 +1,96 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ibus-super
+  annotations: 
+    kubernetes.io/change-cause: $LAST_TAG-$DATE_STRING
+spec:
+  selector:
+    matchLabels:
+      app: ibus-super
+  template:
+    metadata:
+      labels:
+        app: ibus-super
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - name: ibus-super
+        image: registry.devops.foxconn.com/dp/ibus_backend/ibus_superapp_webapi_release_linux:bsuper_v1.128
+        resources:
+          requests:
+            cpu: 200m
+            memory: 700Mi
+          limits:
+            cpu: 450m
+            memory: 1G
+        env:
+        - name: RoutePrefix
+          value: "bsuper$VAR_QAS_APPEND_AFTER_ROUTEPREFIX"
+        - name: Database__Default__MasterConnectionString
+          value: server=tcp:ibus-test-sql-server.database.windows.net,1433;database=iBus_test_database;uid=foxconnhy;pwd=1Qaz2wsx3edc;TrustServerCertificate=true;Min Pool Size=10;Max Pool Size=1000;
+        - name: Database__Default__SlaveConnectionString__0
+          value: server=tcp:ibus-test-sql-server.database.windows.net,1433;database=iBus_test_database;uid=foxconnhy;pwd=1Qaz2wsx3edc;TrustServerCertificate=true;Min Pool Size=10;Max Pool Size=1000;
+        - name: Database__Default__SlaveConnectionString__1
+          value: server=tcp:ibus-test-sql-server.database.windows.net,1433;database=iBus_test_database;uid=foxconnhy;pwd=1Qaz2wsx3edc;TrustServerCertificate=true;Min Pool Size=10;Max Pool Size=1000;
+        - name: NlogRule__WriteTo
+          value: "database"
+        - name: NlogRule__MinLevel
+          value: "Info"
+        - name: NlogRule__EnableExceptionDetail
+          value: "true"
+        - name: IdP__EndPoint
+          value: https://qa.citygpt.foxconn.com/
+        - name: IdP__ResourceDiscoveryUrl
+          value: https://qa.citygpt.foxconn.com/ridp/.well-known/v1/openid-configuration/Resource
+        - name: ApiResources__idp
+          value: https://qa.citygpt.foxconn.com/ridp
+        - name: ApiResources__message
+          value: https://qa.citygpt.foxconn.com/rmessage
+        - name: ApiResources__traffic
+          value: https://qa.citygpt.foxconn.com/rtraffic
+        - name: ApiResources__storage
+          value: https://dev.citygpt.foxconn.com/rstorage
+        - name: ApiResources__basic
+          value: https://qa.citygpt.foxconn.com/rbasic
+        - name: ApiResources__google
+          value: https://qa.citygpt.foxconn.com/rgoogle
+        - name: ApiResources__ibus
+          value: https://ibus.tbkc.gov.tw/ibus/graphql
+        - name: JwtSettings__Issuer
+          value: "citygpt.identity"
+        - name: JwtSettings__PrivateKeyJWK__x
+          value: "dUhjZEJJUWpHZVdqU0U2cUpWbGNONVFQREhoSDJJRXM4eHFLdmhjNndXcz0"
+        - name: JwtSettings__PrivateKeyJWK__y
+          value: "VU5vMG1jYTRxTlUzcWo2WjVKRmc0bEduNTREMm1vcTVxbE43WkpnUG90QT0"
+        - name: JwtSettings__PrivateKeyJWK__d
+          value: "TUhjQ0FRRUVJSUUrNnlxMDgxLzJTVlVKUTJ0SEpUWVZzcG9jMUdGT1BianI4eEp6WUlnZG9Bb0dDQ3FHU000OUF3RUhvVVFEUWdBRXVIY2RCSVFqR2VXalNFNnFKVmxjTjVRUERIaEgySUVzOHhxS3ZoYzZ3V3RRMmpTWnhyaW8xVGVxUHBua2tXRGlVYWZuZ1BhYWlybXFVM3RrbUEraTBBPT0"
+        - name: IdP__Issuer
+          value: "citygpt.identity"
+        - name: IdP__JWK__kty
+          value: $QAS_JWK_KTY
+        - name: IdP__JWK__use
+          value: $QAS_JWK_USE
+        - name: IdP__JWK__kid
+          value: $QAS_JWK_KID
+        - name: IdP__JWK__e
+          value: $QAS_JWK_E
+        - name: IdP__JWK__n
+          value: $QAS_JWK_N
+        - name: IdP__JWK__alg
+          value: $QAS_JWK_ALG
+        - name: IdentitySettings__GuestScope
+          value: openid profile basic.read google traffic.read traffic.write traffic basic.write storage
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        # securityContext:
+        #   allowPrivilegeEscalation: false
+        #   runAsNonRoot: true
+        #   readOnlyRootFilesystem: true
+        #   runAsUser: 1000
+        #   capabilities:
+        #     drop: ["ALL"]
+        #     add: ["NET_ADMIN", "SYS_TIME"]
+      imagePullSecrets: 
+      - name: secret

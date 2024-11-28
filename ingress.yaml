@@ -4,6 +4,7 @@ metadata:
   name: ingress
 spec:
   rules:
+  - host: ibus.super
     http:
       paths:
       - path: /bsuper/

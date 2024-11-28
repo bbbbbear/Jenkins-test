@@ -4,10 +4,9 @@ metadata:
   name: ingress
 spec:
   rules:
-  - host: ibus-super
     http:
       paths:
-      - path: /bsuper/*
+      - path: /bsuper/
         pathType: Prefix
         backend:
           service:

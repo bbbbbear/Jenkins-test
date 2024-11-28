@@ -4,6 +4,7 @@ metadata:
   name: ibus-super-route
 spec:
 #  host: ibus-super
+  path: /bsuper/maas/index.html
   to:
     kind: Service
     name: ibus-super

@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress
+spec:
+  rules:
+#  - host: ibus-super.<your-domain>
+    http:
+      paths:
+      - path: /bsuper/*
+        pathType: Prefix
+        backend:
+          service:
+            name: ibus-super
+            port:
+              number: 8080

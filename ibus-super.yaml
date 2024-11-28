@@ -68,17 +68,17 @@ spec:
         - name: IdP__Issuer
           value: "citygpt.identity"
         - name: IdP__JWK__kty
-          value: $QAS_JWK_KTY
+          value: RSA
         - name: IdP__JWK__use
-          value: $QAS_JWK_USE
+          value: sig
         - name: IdP__JWK__kid
-          value: $QAS_JWK_KID
+          value: c087bdf5-2688-4e44-b6a3-1d98dbccadd9
         - name: IdP__JWK__e
-          value: $QAS_JWK_E
+          value: AQAB
         - name: IdP__JWK__n
-          value: $QAS_JWK_N
+          value: 4jiOR32gY1D4PNNl_AZl0lM3iV-zD_qYFwiGhtsQ9Goce6aaPvL1s1U0sqTtAVXllXy6GFr_pfYOXCcUyKf7FxagGCx36p7jiFJJAd3aBPMUGBh7NActMkRncdWbGlPlgUtrRojusvSxpHi52DTvIlZMPSJfc25Pml6UPscs2-0wXNqVpFjLWePUnP9minQfxL69hni7cPm1_6PVKK_rsRqAMU1K7Dm9m0aUmNvKSxNz3MjFj7vZm7togdn0yDvyirTUAKBkfPJ2ThgmG5Zo05AxmZ0JMydvQiMmyYD6LMz4yMsEIt9gMj5hDKrqU3F61eCKmnMGHTTobP80YKpqHQ
         - name: IdP__JWK__alg
-          value: $QAS_JWK_ALG
+          value: RS256
         - name: IdentitySettings__GuestScope
           value: openid profile basic.read google traffic.read traffic.write traffic basic.write storage
         imagePullPolicy: IfNotPresent

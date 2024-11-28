@@ -3,7 +3,7 @@ kind: Route
 metadata:
   name: ibus-super-route
 spec:
-  host: ibus-super.
+#  host: ibus-super
   to:
     kind: Service
     name: ibus-super

@@ -4,7 +4,7 @@ metadata:
   name: ingress
 spec:
   rules:
-#  - host: ibus-super.<your-domain>
+  - host: ibus-super
     http:
       paths:
       - path: /bsuper/*

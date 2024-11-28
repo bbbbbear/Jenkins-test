@@ -14,6 +14,7 @@ pipeline {
                 sh 'oc apply -f ibus-super.yaml'
                 sh 'oc apply -f ibus-super-svc.yaml'
                 sh 'oc apply -f ibus-super-route.yaml'
+                sh 'oc apply -f ingress.yaml'
             }
         }
     }

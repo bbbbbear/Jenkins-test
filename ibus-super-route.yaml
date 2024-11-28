@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: ibus-super-route
+spec:
+  host: ibus-super.
+  to:
+    kind: Service
+    name: ibus-super
+  port:
+    targetPort: 8080

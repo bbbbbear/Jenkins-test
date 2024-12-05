@@ -3,7 +3,6 @@ kind: Deployment
 metadata:
   name: ibus-super
   annotations: 
-    kubernetes.io/change-cause: $LAST_TAG-$DATE_STRING
 spec:
   selector:
     matchLabels:
@@ -13,7 +12,6 @@ spec:
       labels:
         app: ibus-super
     spec:
-      automountServiceAccountToken: false
       containers:
       - name: ibus-super
         image: registry.devops.foxconn.com/dp/ibus_backend/ibus_superapp_webapi_release_linux:bsuper_v1.128
@@ -26,7 +24,7 @@ spec:
             memory: 1G
         env:
         - name: RoutePrefix
-          value: "bsuper$VAR_QAS_APPEND_AFTER_ROUTEPREFIX"
+          value: "bsuper"
         - name: Database__Default__MasterConnectionString
           value: server=tcp:ibus-test-sql-server.database.windows.net,1433;database=iBus_test_database;uid=foxconnhy;pwd=1Qaz2wsx3edc;TrustServerCertificate=true;Min Pool Size=10;Max Pool Size=1000;
         - name: Database__Default__SlaveConnectionString__0
@@ -84,13 +82,5 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
-        # securityContext:
-        #   allowPrivilegeEscalation: false
-        #   runAsNonRoot: true
-        #   readOnlyRootFilesystem: true
-        #   runAsUser: 1000
-        #   capabilities:
-        #     drop: ["ALL"]
-        #     add: ["NET_ADMIN", "SYS_TIME"]
       imagePullSecrets: 
       - name: foxconn-secret

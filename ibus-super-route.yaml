@@ -1,12 +1,15 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: ibus-super-route
+  name: ibus-super
 spec:
-#  host: ibus-super
-  path: /bsuper/maas/index.html
   to:
     kind: Service
     name: ibus-super
   port:
     targetPort: 8080
+    tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+
+    
